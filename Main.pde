@@ -1,7 +1,6 @@
-ArrayList<Creatures> blob = new ArrayList<Creatures>();
+ArrayList<Creatures> blobs = new ArrayList<Creatures>();
 ArrayList<Food> food = new ArrayList<Food>();
-int time = 100;
-//boolean eaten = false;
+int time = 150;
 
 void setup()
 {
@@ -10,13 +9,20 @@ void setup()
   
   for(int i = 0; i < 5; i ++)
   {
-    blob.add(new Creatures());
+    blobs.add(new Creatures());
   }
   
-  for(int i = 0; i < 20; i++)
+  for(int i = 0; i < 50; i++)
   {
     food.add(new Food());
   }
+}
+
+void reset(Creatures blob)
+{
+  blob.blobX = 500;
+  blob.blobY = 500;
+  time = 150;
 }
 
 void collision(Creatures blob) 
@@ -33,19 +39,24 @@ void collision(Creatures blob)
   }
 }
 
-void kill()
+void kill(Creatures blob)
 {
-  for(int i = 0; i < blob.size() - 1; i++) 
+  for(int i = 0; i < blobs.size() - 1; i++) 
   {
-    Creatures b = blob.get(i);
-    if(blob.eaten)
+    Creatures b = blobs.get(i);
+    if(!blob.eaten)
     {
       print("removed");
-      blob.remove(b);
+      blobs.remove(blob);
     }
     else
     {
       println("aaaaaaaaaaa");
+    }
+    
+    for(int j = 0; j < blobs.size(); j++)
+    {
+      reset(blob);
     }
   }
 }
@@ -61,10 +72,11 @@ void timer()
   }
   else
   {
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < blobs.size(); i++)
     {
+      Creatures b = blobs.get(i);
       println("time over");
-      kill();
+      kill(b);
     }
   }
   
@@ -74,11 +86,11 @@ void draw()
 {
   background(146, 227, 0);
   
-  for(int i = 0; i < 5; i++)
+  for(int i = 0; i < blobs.size(); i++)
   {
-    blob.get(i).move();
-    blob.get(i).show();
-    collision(blob.get(i));
+    blobs.get(i).move();
+    blobs.get(i).show();
+    collision(blobs.get(i));
   }
   
   for(Food f : food)
@@ -90,7 +102,7 @@ void draw()
   
 }
 
-void keyPressed()
+void keyPressed(Creatures blob)
 {
   blob.eaten = true;
 }

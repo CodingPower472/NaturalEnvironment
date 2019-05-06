@@ -10,11 +10,6 @@ class Creatures
     blobY = blobY + random(-15, 15);
   }
   
-  void update()
-  {
-  
-  }
-  
   void show()
   {
     fill(214, 204, 0);
