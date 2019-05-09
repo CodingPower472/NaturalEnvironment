@@ -1,7 +1,7 @@
 class Creatures
 {
-  float blobX = 500;
-  float blobY = 500;
+  float blobX = 501;
+  float blobY = 499;
   public boolean eaten = false;
   
   void move()
